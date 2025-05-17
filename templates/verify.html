@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-posta Doğrulama</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .verify-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .verify-box {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+        .verify-box h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .verify-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+        }
+        .verify-box button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .verify-box button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .info {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="verify-container">
+        <form class="verify-box" method="POST" action="/verify">
+            <h2>Kod Doğrulama</h2>
+            <div class="info">Lütfen e-posta adresinize gönderilen doğrulama kodunu girin.</div>
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+            <input type="text" name="verification_code" placeholder="Doğrulama Kodu" required>
+            <button type="submit">Doğrula</button>
+        </form>
+    </div>
+</body>
+</html>

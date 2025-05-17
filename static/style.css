@@ -1,0 +1,133 @@
+/* Yeni Arka Plan Gradienti */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a0dad, #1e90ff); /* Mor -> Mavi */
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Konteyner: Sidebar + Chat Alanı */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+
+
+/* Sol Menü (Kanallar) */
+.sidebar {
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.sidebar img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.sidebar ul li:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Sağ Sohbet Alanı */
+.chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 60%;
+    align-self: flex-start;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.message.self {
+    align-self: flex-end;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.message .meta {
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 5px;
+}
+
+.message .username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-area {
+    display: flex;
+    margin-top: 10px;
+}
+
+.input-area input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.input-area button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background-color: #45a049;
+}

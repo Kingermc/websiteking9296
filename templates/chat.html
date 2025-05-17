@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sohbet</title>
+    <link rel="stylesheet" href="/static/style.css" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img src="{{ url_for('static', filename='adsiz.png') }}" alt="Kanal Logosu">
+            <h2>Kanallar</h2>
+            <ul>
+                <li>Genel Sohbet</li>
+                <!-- İleride diğer kanallar buraya eklenebilir -->
+            </ul>
+        </div>
+
+        <div class="chat-area">
+            <div class="messages" id="messages">
+                {% for message in messages %}
+                    <div class="message {% if message.username == current_user %}self{% endif %}">
+                        <div class="username">{{ message.username }}</div>
+                        <div class="text">{{ message.text }}</div>
+                        <div class="meta">{{ message.timestamp }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <form class="input-area" id="messageForm" autocomplete="off">
+                <input type="text" name="message" placeholder="Mesaj yaz..." required />
+                <button type="submit">Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Socket.IO client -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        const messageForm = document.getElementById('messageForm');
+        const messageInput = messageForm.querySelector('input[name="message"]');
+        const messagesDiv = document.getElementById('messages');
+
+        // Form gönderildiğinde mesajı Socket.IO ile gönder
+        messageForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.emit('send_message', { message: message });
+                messageInput.value = '';
+            }
+        });
+
+        // Yeni mesaj alındığında sayfaya ekle
+        socket.on('receive_message', function (data) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            if (data.username === "{{ current_user }}") {
+                messageDiv.classList.add('self');
+            }
+            messageDiv.innerHTML = `
+                <div class="username">${data.username}</div>
+                <div class="text">${data.text}</div>
+                <div class="meta">${data.timestamp}</div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        // Sayfa yüklendiğinde scroll en alta insin
+        window.onload = () => {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        };
+    </script>
+</body>
+</html>
